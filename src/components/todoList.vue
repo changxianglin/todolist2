@@ -1,15 +1,17 @@
 <template>
 <ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-center">
+  <li class="list-group-item d-flex justify-content-between align-items-center"
+  v-for="item in todolists" :key="item.id"
+  >
     <!-- 复选框 -->
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-      <label class="form-check-label" for="defaultCheck1">
-        Default checkbox
+      <input class="form-check-input" type="checkbox" value="" :id="item.id">
+      <label class="form-check-label" :for="item.id">
+        {{ item.task }}
       </label>
     </div>
-    <span class="badge badge-primary badge-pill">已完成</span>
-    <span class="badge badge-warning badge-pill">未完成</span>
+    <span class="badge badge-primary badge-pill" v-if="item.isCompleted">已完成</span>
+    <span class="badge badge-warning badge-pill" v-else>未完成</span>
   </li>
 </ul>
 </template>
@@ -17,6 +19,13 @@
 <script>
 export default {
   name: 'todoList',
+  props: {
+    todolists: {
+      type: Array,
+      required: true,
+      default: [],
+    }
+  }
 }
 </script>
 
